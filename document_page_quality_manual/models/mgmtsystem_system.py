@@ -9,6 +9,6 @@ class MgmtSystemSystem(models.Model):
     @api.model
     def get_manual_categories(self):
         res = super().get_manual_categories()
-        res.update(self.env.ref(
-            'document_page_quality_manual.document_page_quality_manual').id)
+        qa_manual = self.env.ref('document_page_quality_manual.document_page_quality_manual')
+        res.append(qa_manual.id) if qa_manual.id not in res else res
         return res
